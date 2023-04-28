@@ -28,10 +28,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Build X docs using Docker
-        uses: lananovikova10/writerside-docker-action@v1.4
-        with: 
-          docker_version: '2.1.1210-p3258' 
+      - name: Build Writerside docs using Docker
+        uses: JetBrains/writerside-github-action@28a07461e87efbda094bfbfb21d988bf416b74c8
       - name: Check Docker output
         run: |
           if [[ $(docker logs $(docker ps -q)) == *"Test failed"* ]]; then
