@@ -29,7 +29,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Build Writerside docs using Docker
-        uses: JetBrains/writerside-github-action@28a07461e87efbda094bfbfb21d988bf416b74c8
+        uses: JetBrains/writerside-github-action@3bb40ad008274bd1a3e447362e41b121d1f3b949
       - name: Check Docker output
         run: |
           if [[ $(docker logs $(docker ps -q)) == *"Test failed"* ]]; then
