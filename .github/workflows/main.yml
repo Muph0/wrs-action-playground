@@ -29,6 +29,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: List files
+        run: |
+          cd /home/runner/work/wrs-action-playground/wrs-action-playground
+          git ls-tree -r HEAD --name-only
+
       - name: Build Writerside docs using Docker
         uses: JetBrains/writerside-github-action@v4
         with:
