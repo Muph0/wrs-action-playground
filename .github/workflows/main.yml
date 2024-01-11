@@ -34,6 +34,11 @@ jobs:
           cd /home/runner/work/wrs-action-playground/wrs-action-playground
           git ls-tree -r HEAD --name-only
 
+      - name: Check file history
+        run: |
+          cd /home/runner/work/wrs-action-playground/wrs-action-playground
+          git -c credential.helper= -c core.quotepath=false -c log.showSignature=false log -n1 --pretty=format:%x01%x01%H%x02%x02%ct%x02%x02%an%x02%x02%cn%x02%x02%s%x02%x02%b%x02%x02%B%x03%x03 --encoding=UTF-8 --all -- help-module/topics/Configure-JVM-options.topic
+
       - name: Build Writerside docs using Docker
         uses: JetBrains/writerside-github-action@v4
         with:
