@@ -67,34 +67,6 @@ jobs:
            path: artifacts/${{ env.ALGOLIA_ARTIFACT }}
            retention-days: 7
 
-  # publish-indexes:
-  #   # The type of runner that the job will run on
-  #   needs: build-job
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: registry.jetbrains.team/p/writerside/builder/algolia-publisher:2.0.32-2
-
-  #   # Steps represent a sequence of tasks that will be executed as part of the job
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/download-artifact@v3
-  #       with:
-  #         name: algolia-indexes
-  #     - uses: montudor/action-zip@v1
-  #       with:
-  #         args: unzip -qq ${{ env.ALGOLIA_ARTIFACT }} -d algolia-indexes
-  #     - name: Display structure of downloaded files
-  #       run: ls -R
-  #     - run: |
-  #         env "algolia-key=${{env.ALGOLIA_KEY}}" java -jar /opt/builder/help-publication-agent.jar \
-  #         update-index \
-  #         --application-name ${{env.ALGOLIA_APP_NAME}} \
-  #         --index-name ${{env.ALGOLIA_INDEX_NAME}} \
-  #         --product ${{env.CONFIG_JSON_PRODUCT}} \
-  #         --version ${{env.CONFIG_JSON_VERSION}} \
-  #         --index-directory algolia-indexes/ \
-  #         2>&1 | tee algolia-update-index-log.txt
-
   deploy:
     environment:
         name: github-pages
@@ -110,13 +82,13 @@ jobs:
         uses: montudor/action-zip@v1
         with:
           args: unzip -qq ${{ env.ARTIFACT }} -d dir
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact to Pages
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dir
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
 
